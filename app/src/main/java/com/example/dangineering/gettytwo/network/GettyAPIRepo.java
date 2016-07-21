@@ -25,7 +25,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 import static android.icu.lang.UCharacter.GraphemeClusterBreak.L;
 
 public class GettyAPIRepo implements ImageRepository {
-    String apiKey = "nbe4gxpc8jfqr6xvr6j4dh7b";
+    String apiKey = "";
     String BASE_URL = "https://api.gettyimages.com/v3/";
 
     GettyService gettyService;
@@ -51,6 +51,7 @@ public class GettyAPIRepo implements ImageRepository {
                         return chain.proceed(request);
                     }
                 })
+                .addInterceptor(new LoggingInterceptor())
                 .build();
 
         //gson
