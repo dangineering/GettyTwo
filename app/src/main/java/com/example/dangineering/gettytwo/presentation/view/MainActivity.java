@@ -26,10 +26,8 @@ public class MainActivity extends AppCompatActivity implements ModelListView {
     // ui items
     RecyclerView recyclerView;
     ModelAdapter modelAdapter;
-
     EditText editText;
     Button btn;
-
 
     // presenter
     ModelListPresenter modelListPresenter;
@@ -40,7 +38,6 @@ public class MainActivity extends AppCompatActivity implements ModelListView {
         setContentView(R.layout.activity_main);
 
         modelListPresenter = new ModelListPresenter(this);
-        modelListPresenter.setView(this);
         initUi();
     }
 
@@ -71,8 +68,6 @@ public class MainActivity extends AppCompatActivity implements ModelListView {
             }
         });
 
-
-
     }
 
     private void launchActivity(ImageViewModel i) {
@@ -90,7 +85,7 @@ public class MainActivity extends AppCompatActivity implements ModelListView {
 
     @Override
     public void showError() {
-        Toast.makeText(this, "Error", Toast.LENGTH_LONG).show();
+        Toast.makeText(this, R.string.error, Toast.LENGTH_LONG).show();
     }
 
     @Override

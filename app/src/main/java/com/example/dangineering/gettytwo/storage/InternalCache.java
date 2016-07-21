@@ -27,7 +27,6 @@ public class InternalCache {
 
         ObjectOutputStream objectOutputStream;
         try {
-            // file = File.createTempFile("MyCache", null, getCacheDir());
             file = new File(context.getCacheDir(), "MyCache");
 
             objectOutputStream = new ObjectOutputStream(new FileOutputStream(file));
@@ -39,7 +38,7 @@ public class InternalCache {
         }
     }
 
-    public List<ImageModel> getImagesLast() throws IOException {
+    public List<ImageModel> getLastCachedImages() throws IOException {
 
         File file;
 
@@ -47,7 +46,6 @@ public class InternalCache {
 
         ObjectInputStream objectInputStream;
         try {
-            // file = File.createTempFile("MyCache", null, getCacheDir());
             file = new File(context.getCacheDir(), "MyCache");
             objectInputStream = new ObjectInputStream(new FileInputStream(file));
             try {

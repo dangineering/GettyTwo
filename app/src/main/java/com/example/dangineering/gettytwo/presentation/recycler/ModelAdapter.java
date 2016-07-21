@@ -30,7 +30,6 @@ public class ModelAdapter extends RecyclerView.Adapter<ImageViewHolder> {
     }
 
 
-
     public void setData(List<ImageViewModel> i) {
         data = i;
         notifyDataSetChanged();

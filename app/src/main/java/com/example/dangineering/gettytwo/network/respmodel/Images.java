@@ -21,7 +21,6 @@ public class Images {
     private String license_model;
 
 
-
     public String getAsset_family ()
     {
         return asset_family;

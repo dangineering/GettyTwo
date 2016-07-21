@@ -27,8 +27,7 @@ dependencies {
 
     // recycler
     compile 'com.android.support:recyclerview-v7:24.0.0'
-
-
+    
 
     // retrofit 2
     compile 'com.google.code.gson:gson:2.6.2'

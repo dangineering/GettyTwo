@@ -1,6 +1,6 @@
 package com.example.dangineering.gettytwo.network.respmodel;
 
-public class Resp {
+public class Response {
 
     private Images[] images;
 

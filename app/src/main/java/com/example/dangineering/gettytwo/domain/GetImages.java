@@ -31,17 +31,31 @@ public class GetImages extends AbstractInteractor {
         getInteractorExecutor().run(this);
     }
 
+    public void execute(Callback callback) {
+        this.callback = callback;
+
+        getInteractorExecutor().run(this);
+    }
+
     @Override
     public void run() {
 
         try {
-            final List<ImageModel> i = imageRepository.getImages(query);
+            final List<ImageModel> i;
+            if (query == null || query.isEmpty()) {
+                i = imageRepository.getLastCachedImages();
+
+            } else {
+                i = imageRepository.getImages(query);
+            }
+
             getMainThreadExecutor().execute(new Runnable() {
                 @Override
                 public void run() {
                     callback.onResult(i);
                 }
             });
+
         } catch (Exception e) {
             getMainThreadExecutor().execute(new Runnable() {
                 @Override
@@ -50,7 +64,5 @@ public class GetImages extends AbstractInteractor {
                 }
             });
         }
-
-
     }
 }

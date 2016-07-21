@@ -16,9 +16,8 @@ import java.util.List;
 
 public class ModelListPresenter {
 
-    // interactor; DI if neccessary
+    // interactor;
     GetImages getImages;
-
 
     ModelListView modelListView;
 
@@ -29,6 +28,7 @@ public class ModelListPresenter {
     }
 
     private void init() {
+        // TODO: ADD DI
 
         InteractorExecutor interactorExecutor = new InteractorExecutorImpl();
 
@@ -38,6 +38,22 @@ public class ModelListPresenter {
 
         getImages = new GetImages(interactorExecutor, mainThreadExecutor, imageRepository);
 
+        fetchCache();
+
+    }
+
+    private void fetchCache() {
+        getImages.execute(new GetImages.Callback() {
+            @Override
+            public void onResult(List<ImageModel> images) {
+                modelListView.add(convert(images));
+            }
+
+            @Override
+            public void onError() {
+                modelListView.showError();
+            }
+        });
     }
 
     public void setView(ModelListView modelListView) {

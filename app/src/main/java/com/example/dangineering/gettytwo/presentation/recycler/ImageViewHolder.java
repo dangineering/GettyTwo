@@ -37,12 +37,4 @@ public class ImageViewHolder extends RecyclerView.ViewHolder {
         });
     }
 
-    public void setImage(String url) {
-
-    }
-
-    public void setTextView(String title) {
-
-    }
-
 }

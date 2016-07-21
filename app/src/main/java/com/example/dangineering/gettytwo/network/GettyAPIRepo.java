@@ -1,11 +1,9 @@
 package com.example.dangineering.gettytwo.network;
 
-import android.media.Image;
-
 import com.example.dangineering.gettytwo.data.ImageModel;
 import com.example.dangineering.gettytwo.data.ImageRepository;
 import com.example.dangineering.gettytwo.network.respmodel.Images;
-import com.example.dangineering.gettytwo.network.respmodel.Resp;
+import com.example.dangineering.gettytwo.network.respmodel.Response;
 import com.example.dangineering.gettytwo.presentation.view.ModelListView;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -17,19 +15,15 @@ import java.util.List;
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
-import okhttp3.Response;
 import retrofit2.Call;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-import static android.icu.lang.UCharacter.GraphemeClusterBreak.L;
-
-public class GettyAPIRepo implements ImageRepository {
+public class GettyAPIRepo {
     String apiKey = "";
     String BASE_URL = "https://api.gettyimages.com/v3/";
 
     GettyService gettyService;
-    ModelListView view;
 
     public GettyAPIRepo() {
         initRetrofit();
@@ -40,12 +34,12 @@ public class GettyAPIRepo implements ImageRepository {
         OkHttpClient okhttp = new OkHttpClient().newBuilder()
                 .addInterceptor(new Interceptor() {
                     @Override
-                    public Response intercept(Chain chain) throws IOException {
+                    public okhttp3.Response intercept(Chain chain) throws IOException {
                         Request original = chain.request();
 
                         // Request customization: add request headers
                         Request.Builder requestBuilder = original.newBuilder()
-                                .header("Api-Key", apiKey); // <-- this is the important line
+                                .header("Api-Key", apiKey);
 
                         Request request = requestBuilder.build();
                         return chain.proceed(request);
@@ -73,21 +67,18 @@ public class GettyAPIRepo implements ImageRepository {
     }
 
 
-    @Override
     public List<ImageModel> getImages(String query) throws IOException {
-        Call<Resp> resp = gettyService.search(query);
-
+        Call<Response> resp = gettyService.search(query);
         try {
-            Resp r = resp.execute().body();
+            Response r = resp.execute().body();
             return convert(r);
         } catch (IOException e) {
             e.printStackTrace();
             throw new IOException();
         }
-
     }
 
-    private List<ImageModel> convert(Resp r){
+    private List<ImageModel> convert(Response r){
         List<ImageModel> ims = new ArrayList<>();
         if (r != null) {
             for (Images i : r.getImages()) {

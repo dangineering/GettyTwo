@@ -6,4 +6,6 @@ import java.util.List;
 public interface ImageRepository {
 
     List<ImageModel> getImages(String query) throws IOException;
+
+    List<ImageModel> getLastCachedImages() throws IOException;
 }

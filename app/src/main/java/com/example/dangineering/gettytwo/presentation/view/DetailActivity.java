@@ -8,7 +8,6 @@ import android.widget.TextView;
 import com.example.dangineering.gettytwo.R;
 import com.squareup.picasso.Picasso;
 
-import org.w3c.dom.Text;
 
 public class DetailActivity extends Activity implements DetailView {
 
